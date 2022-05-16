@@ -23,17 +23,8 @@ damages <- read_csv("damages.csv")%>%
   clean_names()
 
 model_damages <- lm(damages  ~ warming, data=damages)
-#create a new variable for warming2
-warming2 <- model_damages$warming2 <- model_damages$warming^2
 
-#fit quadratic regression model
-quadraticModel_damages <- lm(damages ~ warming + warming2, data= damages)
-
-#view model summary
-summary(quadraticModel_damages)
-
-Call:
-lm(formula = damages ~ warming + warming2, data = damages)
+summary(model_damages)
 
 ```
 ## 1. Using damages.csv, estimate a quadratic damage function relating the dollar value of damages to the change in global mean temperature. Estimate a model with a zero intercept because damages by construction must equal zero when there is no climate change. Plot your estimated damage function, overlaid with a scatterplot of the underlying data.
