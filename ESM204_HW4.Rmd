@@ -30,7 +30,7 @@ summary(model_damages)
 ## 1. Using damages.csv, estimate a quadratic damage function relating the dollar value of damages to the change in global mean temperature. Estimate a model with a zero intercept because damages by construction must equal zero when there is no climate change. Plot your estimated damage function, overlaid with a scatterplot of the underlying data.
 
 ```{r}
-quadratic <- function(x) {y = x^2 + x + 
+quadratic <- function(x) {y = x^2
 return(y)}
 
 damage_function <- quadratic(damages)
