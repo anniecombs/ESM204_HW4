@@ -33,10 +33,13 @@ summary(model_damages)
 quadratic <- function(x) {y = x^2
 return(y)}
 
+damages_lm <- lm(damages = warming + warming2, data = damages)
+
 damage_function <- quadratic(damages)
 
-ggplot(damage_function, aes(x = damages, y = warming))+
-         geom_line()
+ggplot(damages_lm, aes(x = warming, y = damages))+
+  geom_line()
+
 ```
 
 ## 2. Use warming.csv and your estimated damage function to predict damages in each year under the baseline climate and the pulse scenario. Make four plots: (1) damages over time without the pulse, (2) damages over time with the pulse, (3) the difference in damages over time that arises from the pulse, and (4) the difference in damages over time from the pulse per ton of
