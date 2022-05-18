@@ -33,6 +33,8 @@ summary(model_damages)
 quadratic <- function(x) {y = x^2
 return(y)}
 
+warming2 <- warming^2
+
 damages_lm <- lm(damages = warming + warming2, data = damages)
 
 damage_function <- quadratic(damages)
