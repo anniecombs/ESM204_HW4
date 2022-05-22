@@ -141,7 +141,24 @@ ggplot(data = scc_table, aes(x = dr, y = scc_vector)) +
 # find the new r
 #0.001 + 2(0.01) = 0.021
 
+# find the new SCC
+scc %>%
+  mutate(dr0.021 = scc_not_discounted/(1.021^years_into_future))
 
+scc0.021 <- sum(scc$dr0.021)
+
+# update SCC table
+scc_vector <- c(scc0.021, scc0.025, scc0.5, scc0.75, scc1, scc1.5, scc2, scc3, scc4, scc5, scc6)
+dr <- c(0.021, 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5, 6)
+scc_table <- data.frame(scc_vector, dr)
+
+# add point with new discount rate to the graph
+ggplot(data = scc_table, aes(x = dr, y = scc_vector)) +
+  geom_line() +
+  geom_col(size = 3, fill = "firebrick2") +
+  geom_point(x = 0.021, y = 0L)
+  labs(x = "Discount rate (%)", y = "Social cost of carbon") +
+  theme_minimal(14)
 ```
 
 ## 5. Now suppose there are two possible climate policies that can be pursued. Policy A is business as usual and Policy B is to take immediate and strong action on climate change. Use these facts
