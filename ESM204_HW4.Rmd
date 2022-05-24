@@ -152,6 +152,23 @@ ggplot(data = scc_table, aes(x = dr, y = scc_vector)) +
 ```
 
 ## 5. Now suppose there are two possible climate policies that can be pursued. Policy A is business as usual and Policy B is to take immediate and strong action on climate change. Use these facts
+
+```{r}
+# expected values
+policy <- pulse %>% 
+  mutate(warming_policy_a = 1.5*warming_baseline) %>% # 0.5 chance of this occurring under A
+  mutate(warming_policy_b = ifelse(year < 2050, warming_policy_a, 1.29)) %>% # 100% chance under Policy B
+  mutate(damages_a = damages(warming_policy_a)) %>% 
+  mutate(damages_b = damages(warming_policy_b)) %>%
+  mutate(years_into_future = year-2022) %>% 
+  mutate(damages_a_discounted = damages_a/(1.02^years_into_future)) %>%
+  mutate(damages_b_discounted = damages_b/(1.02^years_into_future)) %>% 
+  mutate(damages_baseline_discounted = damages_baseline/(1.02^years_into_future))
+# expected values
+ev_a <- 0.5*sum(policy$damages_baseline_discounted) + 0.5*sum(policy$damages_a_discounted)
+ev_b <- sum(policy$damages_b_discounted)
+```
+
 - If you undertake Policy A there are two possible outcomes. Either warming will occur as
 in the “baseline” (i.e. “no-pulse”) dataset above (this happens with probability 0.5) or
 warming each year will be 1.5 times that in the “baseline” dataset (with probability 0.5).
@@ -165,4 +182,42 @@ will stabilize at 1.29 degrees and stay that way forever.
 
 ## What is the expected present value of damages up to 2100 under Policy A? What is the expected present value of damages up to 2100 under Policy B? Suppose undertaking Policy A costs zero and undertaking Policy B costs X. The total cost of a policy is the implementation cost plus expected damages. Make a plot of total cost of Policy A and total cost of Policy B against X. Suppose Congress wants to undertake the policy with the lower total cost. Use your graph to advise Congress.
 
+
+
+## Damages
+
+Value of damages at present up to 2100 if considering **Policy A**: $`r round(ev_a/1e+12, 0)` trillion
+
+Value of damages at present up to 2100 if considering **Policy B**: $`r round(ev_b/1e+12, 0)` trillion
+
+```{r}
+# sequence for cost
+cost <- seq(0, 5e15, by = 1e12) 
+
+cost_df <- data.frame(cost) 
+
+cost_compare <- cost_df %>% 
+  mutate(cost_b = ev_b + cost) %>% 
+  mutate(cost_a = ev_a)
+
+# visualizing cost and damages of policy options
+ggplot(data = cost_compare) +
+  geom_line(aes(x = cost/1e12, y = cost_a/1e12)) + 
+  geom_line(aes(x = cost/1e12, y = cost_b/1e12)) +
+  theme_minimal() + 
+  labs(x = "Policy Implementation Cost", y = "Total Expected Cost") +
+  geom_text(aes(x = 4000, y = 3200, label = "A"), size = 4) +
+  geom_text(aes(x = 4000, y = 5300, label = "B")) +
+   geom_vline(xintercept = 1970, linetype = "dashed") +
+  geom_text(aes(x = 1000, y = 6000, label = "Use Policy B")) +
+  geom_text(aes(x = 3400, y = 6000, label = "Use Policy A")) +
+  scale_y_continuous(limits = c(0, 6000))
+```
+
+### Advice to Congress
+
+Judging from our rendered plot and knowing that society in this scenario is risk neutral, Congress should use Policy B if it costs less than $2000 trillion to implement. At any price above that, Congress should use Policy A.
+
 ## 6. Now suppose that society is risk averse. How do you think this would change your advice to Congress?
+
+Congress would only want to consider using Policy B if we consider that the society is risk averse.
