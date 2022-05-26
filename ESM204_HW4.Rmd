@@ -216,8 +216,8 @@ ggplot(data = cost_compare) +
 
 ### Advice to Congress
 
-Judging from our rendered plot and knowing that society in this scenario is risk neutral, Congress should use Policy B if it costs less than $2000 trillion to implement. At any price above that, Congress should use Policy A.
+Judging from our rendered plot and knowing that society in this scenario is risk neutral, Congress should use Policy B if it costs less than $2000 trillion to implement. At any price above that, Congress should use Policy A because it would be less risky.
 
 ## 6. Now suppose that society is risk averse. How do you think this would change your advice to Congress?
 
-Congress would only want to consider using Policy B if we consider that the society is risk averse.
+Congress would only want to consider using Policy B if we consider that the society is risk averse.If their risk curve is concave, reflecting a risk averse preference, the benefits of reduced climate change involved with policy B will quickly outweigh the risk involved in choosing this policy. 
