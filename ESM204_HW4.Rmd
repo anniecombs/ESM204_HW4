@@ -220,4 +220,4 @@ Judging from our rendered plot and knowing that society in this scenario is risk
 
 ## 6. Now suppose that society is risk averse. How do you think this would change your advice to Congress?
 
-Congress would only want to consider using Policy B if we consider that the society is risk averse.If their risk curve is concave, reflecting a risk averse preference, the benefits of reduced climate change involved with policy B will quickly outweigh the risk involved in choosing this policy. 
+Congress would only want to consider using Policy B if we consider that the society is risk averse. If their risk curve is concave, reflecting a risk averse preference, the benefits of reduced climate change involved with policy B will quickly outweigh the cost of choosing this policy. Option B is only preferable past the point where the two lines intersect because the costs and benefitts of choosing policy A remain the same. As long as the point on the curve is past this intersection point, they will be more likely to choose policy B. 
